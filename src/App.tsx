@@ -24,6 +24,59 @@ import type { ReactElement } from 'react'
 
 const releaseUrl = 'https://github.com/miclle/gitwikitree/releases/latest'
 const sourceUrl = 'https://github.com/miclle/gitwikitree'
+const assetPath = (path: string): string => `${import.meta.env.BASE_URL}${path}`
+
+const siteContent = {
+  locale: 'en',
+  nav: {
+    architecture: 'Architecture',
+    features: 'Features',
+    download: 'Download',
+    documentation: 'Documentation',
+    github: 'GitHub'
+  },
+  hero: {
+    title: 'Experience local Git docs without the context switching',
+    lede:
+      'Open a local Git repository as a wiki-like desktop workspace. Browse the file tree, preview Markdown, edit docs, search the working tree, inspect blame, and choose branch or worktree actions without changing tools.',
+    download: 'Download',
+    source: 'View source'
+  },
+  architecture: {
+    eyebrow: 'Product model',
+    title: 'Built around the same files your repository already has',
+    text:
+      'The site is organized the same way the app is used: local files first, editor and preview second, explicit Git actions when the workspace changes.'
+  },
+  features: {
+    eyebrow: 'Application surface',
+    title: 'More than a Markdown previewer'
+  },
+  workflow: {
+    eyebrow: 'Repository routine',
+    title: 'Stay inside the repository',
+    text:
+      'Git Wikitree keeps the daily loop close to the files: open the project, read docs in context, edit when needed, inspect Git history, and come back later with the same workspace remembered.'
+  },
+  download: {
+    eyebrow: 'Download',
+    title: 'Install from the latest GitHub release',
+    text:
+      'Git Wikitree is packaged with electron-builder for macOS, Windows, and Linux. These links intentionally stay on the latest public release.'
+  },
+  docs: {
+    eyebrow: 'Documentation',
+    title: 'Core workflows to document first',
+    text:
+      'These are the help surfaces the public site should grow into as release notes and user docs become public.'
+  },
+  source: {
+    title: ['Local-first, Git-first,', 'Markdown-friendly'],
+    text:
+      'Git Wikitree is not a remote dashboard. It is a desktop workspace for the repository already on your machine, with Git actions exposed only where the user chooses them.',
+    action: 'Explore the project'
+  }
+} as const
 
 const downloadLinks = [
   {
@@ -162,7 +215,7 @@ function WorkspaceShot(): ReactElement {
       <div className="screenshot-frame">
         <img
           className="app-screenshot"
-          src="/gitwikitree-app-screenshot.png"
+          src={assetPath('gitwikitree-app-screenshot.png')}
           alt="Git Wikitree desktop app showing the miclle/gitwikitree repository, README.md preview, TODO.md and LICENSE tabs, gitwikitree-icon.png in the file tree, Preview controls, Working tree status, and Markdown file facts."
         />
       </div>
@@ -172,41 +225,37 @@ function WorkspaceShot(): ReactElement {
 
 function App(): ReactElement {
   return (
-    <main>
+    <main lang={siteContent.locale}>
       <header className="site-header" aria-label="Primary">
         <a className="brand" href="#top" aria-label="Git Wikitree home">
-          <img src="/gitwikitree-icon.png" alt="" />
+          <img src={assetPath('gitwikitree-icon.png')} alt="" />
           <span>Git Wikitree</span>
         </a>
         <nav>
-          <a href="#architecture">Architecture</a>
-          <a href="#features">Features</a>
-          <a href="#download">Download</a>
-          <a href="#docs">Documentation</a>
-          <a href={sourceUrl}>GitHub</a>
+          <a href="#architecture">{siteContent.nav.architecture}</a>
+          <a href="#features">{siteContent.nav.features}</a>
+          <a href="#download">{siteContent.nav.download}</a>
+          <a href="#docs">{siteContent.nav.documentation}</a>
+          <a href={sourceUrl}>{siteContent.nav.github}</a>
         </nav>
       </header>
 
       <section id="top" className="hero">
         <div className="hero-copy">
           <div className="product-lockup">
-            <img src="/gitwikitree-icon.png" alt="" />
+            <img src={assetPath('gitwikitree-icon.png')} alt="" />
             <span>Git Wikitree</span>
           </div>
-          <h1>Experience local Git docs without the context switching</h1>
-          <p className="hero-lede">
-            Open a local Git repository as a wiki-like desktop workspace. Browse the file
-            tree, preview Markdown, edit docs, search the working tree, inspect blame,
-            and choose branch or worktree actions without changing tools.
-          </p>
+          <h1>{siteContent.hero.title}</h1>
+          <p className="hero-lede">{siteContent.hero.lede}</p>
           <div className="hero-actions" aria-label="Primary actions">
             <a className="button primary" href={releaseUrl}>
               <Download size={18} aria-hidden="true" />
-              <span>Download</span>
+              <span>{siteContent.hero.download}</span>
             </a>
             <a className="button secondary" href={sourceUrl}>
               <Github size={18} aria-hidden="true" />
-              <span>View source</span>
+              <span>{siteContent.hero.source}</span>
             </a>
           </div>
         </div>
@@ -216,12 +265,9 @@ function App(): ReactElement {
 
       <section id="architecture" className="section narrative-section">
         <div className="section-heading">
-          <p className="eyebrow">Product model</p>
-          <h2>Built around the same files your repository already has</h2>
-          <p>
-            The site is organized the same way the app is used: local files first, editor
-            and preview second, explicit Git actions when the workspace changes.
-          </p>
+          <p className="eyebrow">{siteContent.architecture.eyebrow}</p>
+          <h2>{siteContent.architecture.title}</h2>
+          <p>{siteContent.architecture.text}</p>
         </div>
         <div className="pillar-grid">
           {productPillars.map((pillar) => (
@@ -247,8 +293,8 @@ function App(): ReactElement {
 
       <section id="features" className="section feature-section">
         <div className="section-heading">
-          <p className="eyebrow">Application surface</p>
-          <h2>More than a Markdown previewer</h2>
+          <p className="eyebrow">{siteContent.features.eyebrow}</p>
+          <h2>{siteContent.features.title}</h2>
         </div>
         <div className="feature-grid">
           {featureGroups.map((feature) => (
@@ -265,13 +311,9 @@ function App(): ReactElement {
 
       <section className="workflow-band">
         <div className="workflow-copy">
-          <p className="eyebrow">Repository routine</p>
-          <h2>Stay inside the repository</h2>
-          <p>
-            Git Wikitree keeps the daily loop close to the files: open the project,
-            read docs in context, edit when needed, inspect Git history, and come back
-            later with the same workspace remembered.
-          </p>
+          <p className="eyebrow">{siteContent.workflow.eyebrow}</p>
+          <h2>{siteContent.workflow.title}</h2>
+          <p>{siteContent.workflow.text}</p>
         </div>
         <div className="workflow-steps" aria-label="Git Wikitree workflow">
           {workflowSteps.map((step, index) => (
@@ -289,12 +331,9 @@ function App(): ReactElement {
 
       <section id="download" className="download-band">
         <div className="section-heading">
-          <p className="eyebrow">Download</p>
-          <h2>Install from the latest GitHub release</h2>
-          <p>
-            Git Wikitree is packaged with electron-builder for macOS, Windows, and Linux.
-            These links intentionally stay on the latest public release.
-          </p>
+          <p className="eyebrow">{siteContent.download.eyebrow}</p>
+          <h2>{siteContent.download.title}</h2>
+          <p>{siteContent.download.text}</p>
         </div>
         <div className="download-grid">
           {downloadLinks.map((link) => (
@@ -312,12 +351,9 @@ function App(): ReactElement {
 
       <section id="docs" className="section docs-section">
         <div className="section-heading">
-          <p className="eyebrow">Documentation</p>
-          <h2>Core workflows to document first</h2>
-          <p>
-            These are the help surfaces the public site should grow into as release notes
-            and user docs become public.
-          </p>
+          <p className="eyebrow">{siteContent.docs.eyebrow}</p>
+          <h2>{siteContent.docs.title}</h2>
+          <p>{siteContent.docs.text}</p>
         </div>
         <div className="docs-list">
           {docs.map((item) => (
@@ -336,18 +372,15 @@ function App(): ReactElement {
         <div>
           <Sparkles size={22} aria-hidden="true" />
           <h2 className="source-title">
-            <span>Local-first, Git-first,</span>
-            <span>Markdown-friendly</span>
+            {siteContent.source.title.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
           </h2>
-          <p>
-            Git Wikitree is not a remote dashboard. It is a desktop workspace for the
-            repository already on your machine, with Git actions exposed only where the
-            user chooses them.
-          </p>
+          <p>{siteContent.source.text}</p>
         </div>
         <a className="button secondary" href={sourceUrl}>
           <Github size={18} aria-hidden="true" />
-          <span>Explore the project</span>
+          <span>{siteContent.source.action}</span>
         </a>
       </section>
     </main>
