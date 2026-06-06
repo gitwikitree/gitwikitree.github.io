@@ -14,8 +14,8 @@ npm run dev
 The site is deployed with GitHub Actions. The workflow builds `dist/` with Vite,
 uploads it as a Pages artifact, and publishes it through GitHub Pages.
 
-Vite uses a relative `base` so the same build works on a project page such as
-`https://gitwikitree.github.io/website/` and on a future custom domain.
+Vite uses a relative `base` so the same build works on the GitHub Pages root
+site at `https://gitwikitree.github.io/` and on a future custom domain.
 
 ## Localization
 
