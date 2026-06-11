@@ -13,9 +13,10 @@ test('home page carries the product, download, and help surfaces', async () => {
     'Read and edit Markdown',
     'Use Git context deliberately',
     'Rich previews',
-    'Install Git Wikitree v1.0.0',
-    'miclle/gitwikitree',
-    'Download latest release',
+    'Built by',
+    'Miclle Zheng',
+    'Releases',
+    'License',
     'Markdown',
     'worktree',
     'blame',
@@ -24,20 +25,23 @@ test('home page carries the product, download, and help surfaces', async () => {
     'Working tree',
     'gitwikitree-icon.png',
     'gitwikitree-app-screenshot.png',
-    'https://github.com/miclle/gitwikitree/releases/latest'
+    'https://github.com/miclle/gitwikitree/releases/latest',
+    'https://github.com/miclle/gitwikitree/blob/main/LICENSE',
+    'https://github.com/miclle'
   ]) {
     assert.match(html, new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
   }
 })
 
-test('visual styling defines responsive actual-app screenshot and compact download area', async () => {
+test('visual styling defines responsive screenshot and compact footer', async () => {
   const css = await readFile(new URL('../src/App.css', import.meta.url), 'utf8')
 
   assert.match(css, /\.workspace-shot/)
   assert.match(css, /\.app-screenshot/)
   assert.match(css, /aspect-ratio/)
-  assert.match(css, /\.download-actions/)
+  assert.match(css, /\.site-footer/)
   assert.doesNotMatch(css, /\.download-card/)
+  assert.doesNotMatch(css, /\.download-band/)
   assert.match(css, /@media \(max-width: 640px\)/)
 })
 

@@ -254,8 +254,7 @@ nav a:hover,
   object-fit: contain;
 }
 
-.section,
-.download-band {
+.section {
   padding: clamp(44px, 6vw, 78px) clamp(20px, 5vw, 72px);
 }
 
@@ -278,9 +277,20 @@ nav a:hover,
   min-height: 0;
 }
 
+.essential-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 8px;
+}
+
+.essential-title h3 {
+  margin-bottom: 0;
+  font-size: 19px;
+}
+
 .essential svg,
-.feature-row svg,
-.download-band svg {
+.feature-row svg {
   color: var(--brand);
 }
 
@@ -312,47 +322,47 @@ nav a:hover,
   border-bottom: 1px solid var(--line);
 }
 
-.download-band {
-  display: grid;
-  grid-template-columns: minmax(280px, 1fr) auto;
-  gap: 24px;
+.site-footer {
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 24px;
   max-width: 1120px;
   margin: 0 auto;
-  padding-top: 28px;
-  padding-bottom: 28px;
+  padding: 26px clamp(20px, 5vw, 72px) 34px;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: #ffffff;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.download-copy {
-  max-width: 680px;
-}
-
-.download-title {
+.footer-brand,
+.footer-links {
   display: flex;
   align-items: center;
+}
+
+.footer-brand {
   gap: 10px;
-  margin-bottom: 8px;
 }
 
-.download-title h2 {
-  margin-bottom: 0;
-  font-size: 24px;
-  line-height: 1.18;
+.footer-brand img {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
 }
 
-.download-band p {
-  margin-bottom: 0;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.download-actions {
-  display: flex;
-  align-items: center;
+.footer-links {
   gap: 18px;
+  font-weight: 700;
+}
+
+.footer-brand a {
+  font-weight: 700;
+}
+
+.footer-brand a:hover,
+.footer-links a:hover {
+  color: var(--brand);
 }
 
 @media (max-width: 900px) {
@@ -367,10 +377,6 @@ nav a:hover,
     gap: 14px 20px;
   }
 
-  .download-band {
-    grid-template-columns: 1fr;
-  }
-
   .essentials {
     grid-template-columns: 1fr;
   }
@@ -379,8 +385,9 @@ nav a:hover,
     min-height: 0;
   }
 
-  .download-actions {
-    justify-content: flex-start;
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
 
@@ -403,8 +410,7 @@ nav a:hover,
     border-radius: 13px;
   }
 
-  .hero-actions,
-  .download-actions {
+  .hero-actions {
     align-items: stretch;
     flex-direction: column;
   }
@@ -431,7 +437,7 @@ nav a:hover,
   }
 
   .section,
-  .download-band {
+  .site-footer {
     padding-right: 18px;
     padding-left: 18px;
   }

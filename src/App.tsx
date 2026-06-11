@@ -7,7 +7,6 @@ import {
   Github,
   GitBranch,
   History,
-  MonitorDown,
   SplitSquareHorizontal
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -15,6 +14,8 @@ import type { ReactElement } from 'react'
 
 const releaseUrl = 'https://github.com/miclle/gitwikitree/releases/latest'
 const sourceUrl = 'https://github.com/miclle/gitwikitree'
+const licenseUrl = 'https://github.com/miclle/gitwikitree/blob/main/LICENSE'
+const authorUrl = 'https://github.com/miclle'
 const assetPath = (path: string): string => `${import.meta.env.BASE_URL}${path}`
 
 const siteContent = {
@@ -35,12 +36,12 @@ const siteContent = {
   features: {
     title: 'What stays in reach'
   },
-  download: {
-    title: 'Install Git Wikitree v1.0.0',
-    text:
-      'The open-source miclle/gitwikitree repository has a public release with packaged app assets for desktop installation.',
-    primary: 'Download latest release',
-    secondary: 'Release notes'
+  footer: {
+    builtBy: 'Built by',
+    author: 'Miclle Zheng',
+    source: 'Source',
+    releases: 'Releases',
+    license: 'License'
   }
 } as const
 
@@ -130,7 +131,7 @@ function App(): ReactElement {
         </a>
         <nav>
           <a href="#features">{siteContent.nav.features}</a>
-          <a href="#download">{siteContent.nav.download}</a>
+          <a href={releaseUrl}>{siteContent.nav.download}</a>
           <a href={sourceUrl}>{siteContent.nav.github}</a>
         </nav>
       </header>
@@ -160,8 +161,10 @@ function App(): ReactElement {
         <div className="essentials" aria-label="Git Wikitree essentials">
           {essentials.map((item) => (
             <article className="essential" key={item.title}>
-              <item.icon size={21} aria-hidden="true" />
-              <h3>{item.title}</h3>
+              <div className="essential-title">
+                <item.icon size={21} aria-hidden="true" />
+                <h3>{item.title}</h3>
+              </div>
               <p>{item.text}</p>
             </article>
           ))}
@@ -181,24 +184,20 @@ function App(): ReactElement {
         </div>
       </section>
 
-      <section id="download" className="download-band">
-        <div className="download-copy">
-          <div className="download-title">
-            <MonitorDown size={20} aria-hidden="true" />
-            <h2>{siteContent.download.title}</h2>
-          </div>
-          <p>{siteContent.download.text}</p>
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <img src={assetPath('gitwikitree-icon.png')} alt="" />
+          <span>
+            {siteContent.footer.builtBy}{' '}
+            <a href={authorUrl}>{siteContent.footer.author}</a>
+          </span>
         </div>
-        <div className="download-actions">
-          <a className="button primary" href={releaseUrl}>
-            <Download size={17} aria-hidden="true" />
-            <span>{siteContent.download.primary}</span>
-          </a>
-          <a className="text-link" href={releaseUrl}>
-            {siteContent.download.secondary}
-          </a>
-        </div>
-      </section>
+        <nav className="footer-links" aria-label="Footer">
+          <a href={sourceUrl}>{siteContent.footer.source}</a>
+          <a href={releaseUrl}>{siteContent.footer.releases}</a>
+          <a href={licenseUrl}>{siteContent.footer.license}</a>
+        </nav>
+      </footer>
     </main>
   )
 }
