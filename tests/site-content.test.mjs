@@ -8,11 +8,14 @@ test('home page carries the product, download, and help surfaces', async () => {
   for (const text of [
     'Git Wikitree',
     'Download',
-    'Documentation',
-    'Architecture',
-    'Editor',
-    'Version control',
-    'Preview modes',
+    'Local Git repositories',
+    'Open local repositories',
+    'Read and edit Markdown',
+    'Use Git context deliberately',
+    'Rich previews',
+    'Install Git Wikitree v1.0.0',
+    'miclle/gitwikitree',
+    'Download latest release',
     'Markdown',
     'worktree',
     'blame',
@@ -27,15 +30,15 @@ test('home page carries the product, download, and help surfaces', async () => {
   }
 })
 
-test('visual styling defines responsive actual-app screenshot and download cards', async () => {
+test('visual styling defines responsive actual-app screenshot and compact download area', async () => {
   const css = await readFile(new URL('../src/App.css', import.meta.url), 'utf8')
 
   assert.match(css, /\.workspace-shot/)
-  assert.match(css, /\.screenshot-frame/)
   assert.match(css, /\.app-screenshot/)
   assert.match(css, /aspect-ratio/)
-  assert.match(css, /\.download-grid/)
-  assert.match(css, /@media \(max-width: 760px\)/)
+  assert.match(css, /\.download-actions/)
+  assert.doesNotMatch(css, /\.download-card/)
+  assert.match(css, /@media \(max-width: 640px\)/)
 })
 
 test('build is prepared for GitHub Pages deployment', async () => {
