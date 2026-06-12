@@ -217,6 +217,18 @@ function writeStoredLocale(locale: Locale): void {
   }
 }
 
+function getBrowserLocale(): Locale {
+  if (typeof window === 'undefined') {
+    return 'en'
+  }
+
+  const languages = window.navigator.languages?.length
+    ? window.navigator.languages
+    : [window.navigator.language]
+
+  return languages.some((language) => language.toLowerCase().startsWith('zh')) ? 'zh-CN' : 'en'
+}
+
 function getInitialLocale(): Locale {
   if (typeof window === 'undefined') {
     return 'en'
@@ -227,7 +239,7 @@ function getInitialLocale(): Locale {
     return storedLocale
   }
 
-  return window.navigator.language.startsWith('zh') ? 'zh-CN' : 'en'
+  return getBrowserLocale()
 }
 
 function WorkspaceShot({ alt }: { alt: string }): ReactElement {
@@ -251,7 +263,6 @@ function App(): ReactElement {
 
   useEffect(() => {
     document.documentElement.lang = locale
-    writeStoredLocale(locale)
   }, [locale])
 
   useEffect(() => {
@@ -288,7 +299,11 @@ function App(): ReactElement {
               aria-label="Language"
               className="language-select"
               value={locale}
-              onChange={(event) => setLocale(event.target.value as Locale)}
+              onChange={(event) => {
+                const nextLocale = event.target.value as Locale
+                writeStoredLocale(nextLocale)
+                setLocale(nextLocale)
+              }}
             >
               {localeOptions.map((option) => (
                 <option key={option.value} value={option.value}>

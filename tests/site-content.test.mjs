@@ -49,7 +49,9 @@ test('home page ships English and Simplified Chinese content with a language swi
     '<select',
     'className="language-select"',
     'value={locale}',
-    'onChange={(event) => setLocale(event.target.value as Locale)}',
+    'const nextLocale = event.target.value as Locale',
+    'writeStoredLocale(nextLocale)',
+    'setLocale(nextLocale)',
     'English',
     '简体中文',
     '本地 Git 仓库，也能像 Wiki 一样阅读。',
@@ -81,6 +83,19 @@ test('language persistence tolerates unavailable localStorage', async () => {
   assert.match(html, /catch \{\n\s+return null/)
   assert.match(html, /catch \{\n\s+\/\/ Ignore blocked storage/)
   assert.doesNotMatch(html, /window\.localStorage\.getItem\(localeStorageKey\)\n\s+if/)
+})
+
+test('initial language uses stored choice first, then browser Chinese, then English', async () => {
+  const html = await readFile(new URL('../src/App.tsx', import.meta.url), 'utf8')
+
+  assert.match(html, /function getBrowserLocale\(\): Locale/)
+  assert.match(html, /window\.navigator\.languages\?\.length/)
+  assert.match(html, /window\.navigator\.language/)
+  assert.match(html, /language\.toLowerCase\(\)\.startsWith\('zh'\)/)
+  assert.match(html, /return languages\.some\(.+\) \? 'zh-CN' : 'en'/)
+  assert.match(html, /if \(isLocale\(storedLocale\)\) \{\n\s+return storedLocale\n\s+\}/)
+  assert.match(html, /return getBrowserLocale\(\)/)
+  assert.doesNotMatch(html, /document\.documentElement\.lang = locale\n\s+writeStoredLocale\(locale\)/)
 })
 
 test('visual styling defines responsive screenshot and compact footer', async () => {
