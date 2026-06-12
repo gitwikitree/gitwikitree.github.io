@@ -60,7 +60,7 @@ test('home page ships English and Simplified Chinese content with a language swi
     '打开本地仓库',
     '阅读和编辑 Markdown',
     '有意识地使用 Git 上下文',
-    '由'
+    '构建'
   ]) {
     assert.match(html, new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
   }
@@ -68,6 +68,7 @@ test('home page ships English and Simplified Chinese content with a language swi
   assert.match(html, /lang=\{content\.locale\}/)
   assert.match(html, /document\.documentElement\.lang = locale/)
   assert.doesNotMatch(html, /aria-pressed/)
+  assert.doesNotMatch(html, /builtBy: '由'/)
 })
 
 test('language persistence tolerates unavailable localStorage', async () => {

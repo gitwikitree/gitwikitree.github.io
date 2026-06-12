@@ -87,6 +87,7 @@ const siteContent = {
     footer: {
       builtBy: 'Built by',
       author: 'Miclle Zheng',
+      authorFirst: false,
       source: 'Source',
       releases: 'Releases',
       license: 'License'
@@ -165,8 +166,9 @@ const siteContent = {
       ]
     },
     footer: {
-      builtBy: '由',
+      builtBy: '构建',
       author: 'Miclle Zheng',
+      authorFirst: true,
       source: '源代码',
       releases: '发布版本',
       license: '许可证'
@@ -351,8 +353,18 @@ function App(): ReactElement {
         <div className="footer-brand">
           <img src={assetPath('gitwikitree-icon.png')} alt="" />
           <span>
-            {content.footer.builtBy}{' '}
-            <a href={authorUrl}>{content.footer.author}</a>
+            {content.footer.authorFirst ? (
+              <>
+                <a href={authorUrl}>{content.footer.author}</a>
+                {' '}
+                {content.footer.builtBy}
+              </>
+            ) : (
+              <>
+                {content.footer.builtBy}{' '}
+                <a href={authorUrl}>{content.footer.author}</a>
+              </>
+            )}
           </span>
         </div>
         <nav className="footer-links" aria-label={content.a11y.footer}>
