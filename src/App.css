@@ -106,7 +106,8 @@ p {
 .brand,
 nav,
 .button,
-.text-link {
+.text-link,
+.language-select {
   font-weight: 700;
 }
 
@@ -131,6 +132,71 @@ nav {
   gap: 24px;
   color: var(--muted);
   font-size: 14px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  margin: -1px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.language-select-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  color: var(--muted);
+}
+
+.language-select-label svg {
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+
+.language-select {
+  width: auto;
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 18px 0 0;
+  border: 0;
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  field-sizing: content;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.language-select:hover,
+.language-select-label:hover {
+  color: var(--brand);
+}
+
+.language-select:focus-visible {
+  outline: 2px solid rgba(17, 97, 73, 0.34);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.language-select-chevron {
+  position: absolute;
+  right: 0;
+  color: currentColor;
 }
 
 nav a:hover,
@@ -375,6 +441,12 @@ nav a:hover,
   nav {
     flex-wrap: wrap;
     gap: 14px 20px;
+  }
+
+  .header-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .essentials {
